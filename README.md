@@ -1,60 +1,43 @@
-# Kibochi Portfolio
+# Astro Starter Kit: Minimal
 
-Personal portfolio website for **Brandon Kibochi Njenga** (professionally known as **Kibochi**) — IT professional, technology enthusiast, and aspiring software developer.
+```sh
+npm create astro@latest -- --template minimal
+```
 
-## Stack
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
+## 🚀 Project Structure
 
-No frameworks, build tools, or package managers.
-
-## Project structure
+Inside of your Astro project, you'll see the following folders and files:
 
 ```text
-brandon-portfolio/
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── script.js
-├── images/
-│   ├── favicon.svg
-│   └── portrait-placeholder.svg
-└── README.md
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
 ```
 
-## Local preview
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-Open `index.html` in a browser, or serve the folder with any static file server:
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-```bash
-# Python
-python3 -m http.server 8080
+Any static assets, like images, can be placed in the `public/` directory.
 
-# Node (if available)
-npx serve .
-```
+## 🧞 Commands
 
-Then visit `http://localhost:8080`.
+All commands are run from the root of the project, from a terminal:
 
-## Customise
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-1. **Portrait** — replace `images/portrait-placeholder.svg` with your photo (for example `images/portrait.jpg`) and update the `<img>` `src` and `alt` in `index.html`.
-2. **Projects** — add live demo or repository URLs in the Projects section when they are public.
-3. **Content** — edit copy in `index.html`; colours and spacing live in CSS variables at the top of `css/style.css`.
+## 👀 Want to learn more?
 
-## Features
-
-- Responsive layout with mobile navigation
-- Semantic landmarks and keyboard-friendly focus states
-- Mailto contact link (no fake contact form)
-- Subtle scroll and hover interactions
-- Light theme with navy typography and royal-blue accents
-
-## Contact
-
-- Email: [the.sirfire@gmail.com](mailto:the.sirfire@gmail.com)
-- GitHub: [github.com/sirfireprojects](https://github.com/sirfireprojects)
-- LinkedIn: [linkedin.com/in/brandon-njenga-13a88a1a0](https://www.linkedin.com/in/brandon-njenga-13a88a1a0/)
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

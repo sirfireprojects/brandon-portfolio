@@ -1,0 +1,89 @@
+---
+import Footer from "../components/layout/Footer.astro";
+import Navbar from "../components/navigation/Navbar.astro";
+import { site } from "../data/site";
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = `${site.fullName} — ${site.brandMark}`,
+	description = site.description,
+} = Astro.props;
+
+const siteTitle = title.includes(site.brand) || title.includes("Brandon") ? title : `${title} · ${site.brandMark}`;
+const baseUrl = import.meta.env.BASE_URL.endsWith("/")
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
+		<link rel="icon" href={`${baseUrl}favicon.ico`} />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<meta name="author" content={site.fullName} />
+		<meta name="theme-color" content="#1d3b8b" />
+		<meta property="og:title" content={siteTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={siteTitle} />
+		<meta name="twitter:description" content={description} />
+		<title>{siteTitle}</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Syne:wght@500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+
+		{/* Apply stored / system theme before paint to avoid a flash of the wrong theme. */}
+		<script is:inline>
+			(() => {
+				const stored = localStorage.getItem("theme");
+				const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+				const theme = stored === "light" || stored === "dark" ? stored : prefersDark ? "dark" : "light";
+				document.documentElement.classList.toggle("dark", theme === "dark");
+				document.documentElement.dataset.theme = theme;
+			})();
+		</script>
+	</head>
+	<body class="flex min-h-dvh flex-col font-sans text-ink antialiased">
+		<a
+			href="#main-content"
+			class="absolute left-4 top-4 z-50 -translate-y-16 rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white transition-transform focus:translate-y-0"
+		>
+			Skip to content
+		</a>
+
+		<Navbar />
+
+		<main id="main-content" class="flex-1">
+			<slot />
+		</main>
+
+		<Footer />
+
+		<script>
+			import { initThemeControls } from "../scripts/theme";
+			import { initReveal } from "../scripts/reveal";
+
+			const boot = () => {
+				initThemeControls();
+				initReveal();
+			};
+
+			boot();
+			document.addEventListener("astro:page-load", boot);
+		</script>
+	</body>
+</html>

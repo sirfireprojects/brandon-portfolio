@@ -1,0 +1,40 @@
+---
+import { exploring } from "../../data/site";
+import SectionHeading from "../ui/SectionHeading.astro";
+---
+
+<section
+	id="exploring"
+	class="section-shell border-b border-border"
+	aria-labelledby="exploring-heading"
+>
+	<div class="mx-auto max-w-6xl px-5 sm:px-8">
+		<div class="grid gap-10 rounded-[1.5rem] border border-border bg-surface-elevated/70 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12 lg:p-10">
+			<SectionHeading
+				id="exploring-heading"
+				eyebrow="Currently exploring"
+				title="An active learning journey — not a claim of mastery."
+				description="These are areas I’m deliberately practicing right now as I deepen my software craft."
+			/>
+
+			<ul class="reveal reveal-delay-2 grid gap-3 sm:grid-cols-2">
+				{
+					exploring.map((item, index) => (
+						<li
+							class="flex items-start gap-3 rounded-xl border border-border/80 bg-surface/60 px-4 py-4"
+							style={`--reveal-delay: ${index * 50}ms`}
+						>
+							<span
+								class="mt-1 flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-soft font-display text-[0.65rem] font-bold text-accent"
+								aria-hidden="true"
+							>
+								{String(index + 1).padStart(2, "0")}
+							</span>
+							<span class="text-sm font-medium leading-snug text-ink sm:text-base">{item}</span>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+</section>

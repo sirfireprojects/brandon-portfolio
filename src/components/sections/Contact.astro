@@ -1,0 +1,40 @@
+---
+import { site, social } from "../../data/site";
+import Icons from "../ui/Icons.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import SocialLinks from "../ui/SocialLinks.astro";
+---
+
+<section id="contact" class="section-shell" aria-labelledby="contact-heading">
+	<div class="mx-auto max-w-6xl px-5 sm:px-8">
+		<div class="relative overflow-hidden rounded-[1.5rem] border border-border bg-surface-elevated px-6 py-10 sm:px-10 sm:py-14 lg:px-14">
+			<div class="contact-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+			<div class="relative grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+				<div>
+					<SectionHeading
+						id="contact-heading"
+						eyebrow="Contact"
+						title="Let’s talk about technology, learning and building."
+						description="Whether it’s IT operations, a project idea or a conversation about software — I’d be glad to connect."
+					/>
+
+					<a
+						href={social.email.href}
+						class="reveal reveal-delay-1 mt-8 inline-flex items-center gap-3 font-display text-2xl font-bold tracking-tight text-accent transition hover:opacity-90 sm:text-3xl"
+					>
+						<Icons name="email" class="size-7 sm:size-8" />
+						{site.email}
+					</a>
+				</div>
+
+				<div class="reveal reveal-delay-2">
+					<p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-ink-muted">
+						Elsewhere
+					</p>
+					<SocialLinks variant="stack" showLabels={true} />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

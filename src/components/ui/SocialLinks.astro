@@ -1,0 +1,54 @@
+---
+import { social } from "../../data/site";
+import Icons from "./Icons.astro";
+
+interface Props {
+	variant?: "inline" | "stack";
+	showLabels?: boolean;
+	class?: string;
+}
+
+const { variant = "inline", showLabels = false, class: className = "" } = Astro.props;
+
+const links = [
+	{ ...social.github, icon: "github" as const },
+	{ ...social.linkedin, icon: "linkedin" as const },
+	{ ...social.email, icon: "email" as const },
+];
+---
+
+<ul
+	class:list={[
+		variant === "inline" ? "flex flex-wrap items-center gap-3" : "flex flex-col gap-3",
+		className,
+	]}
+>
+	{
+		links.map((link) => (
+			<li>
+				<a
+					href={link.href}
+					class:list={[
+						"group inline-flex items-center gap-2.5 rounded-md text-ink-muted transition-colors hover:text-accent",
+						showLabels
+							? "border border-border bg-surface-elevated/70 px-4 py-3 hover:border-accent/40"
+							: "size-11 justify-center hover:bg-surface-muted",
+					]}
+					target={link.href.startsWith("http") ? "_blank" : undefined}
+					rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+					aria-label={showLabels ? undefined : link.label}
+				>
+					<Icons name={link.icon} class="size-5 shrink-0" />
+					{showLabels && (
+						<span class="min-w-0">
+							<span class="block text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted group-hover:text-accent">
+								{link.label}
+							</span>
+							<span class="block truncate text-sm font-medium text-ink">{link.handle}</span>
+						</span>
+					)}
+				</a>
+			</li>
+		))
+	}
+</ul>
