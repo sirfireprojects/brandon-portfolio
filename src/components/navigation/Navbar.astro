@@ -1,0 +1,156 @@
+---
+import { navItems, site } from "../../data/site";
+
+interface NavItem {
+	label: string;
+	href: string;
+}
+
+interface Props {
+	brand?: string;
+	items?: readonly NavItem[] | NavItem[];
+}
+
+const { brand = site.brandMark, items = navItems } = Astro.props;
+const homeHref = import.meta.env.BASE_URL.endsWith("/")
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+---
+
+<header class="sticky top-0 z-40 border-b border-border/80 bg-surface/80 backdrop-blur-md">
+	<div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+		<a
+			href={homeHref}
+			class="font-display text-lg font-bold tracking-[0.14em] text-ink transition-colors hover:text-accent sm:text-xl"
+		>
+			{brand}
+		</a>
+
+		<nav class="hidden items-center gap-5 xl:gap-7 lg:flex" aria-label="Primary">
+			{
+				items.map((item) => (
+					<a
+						href={item.href}
+						class="text-sm font-medium tracking-wide text-ink-muted transition-colors hover:text-ink"
+					>
+						{item.label}
+					</a>
+				))
+			}
+		</nav>
+
+		<div class="flex items-center gap-1.5">
+			<button
+				type="button"
+				class="inline-flex size-10 items-center justify-center rounded-md text-ink transition-colors hover:bg-surface-muted"
+				data-theme-toggle
+				aria-pressed="false"
+				aria-label="Switch theme"
+			>
+				<span class="sr-only">Toggle color theme</span>
+				<svg
+					class="size-5 dark:hidden"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+					></path>
+				</svg>
+				<svg
+					class="hidden size-5 dark:block"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					aria-hidden="true"
+				>
+					<circle cx="12" cy="12" r="4"></circle>
+					<path
+						stroke-linecap="round"
+						d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+					></path>
+				</svg>
+			</button>
+
+			<button
+				type="button"
+				class="inline-flex size-10 items-center justify-center rounded-md text-ink transition-colors hover:bg-surface-muted lg:hidden"
+				data-nav-toggle
+				aria-controls="mobile-nav"
+				aria-expanded="false"
+				aria-label="Open menu"
+			>
+				<svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+					<path class="nav-icon-open" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"></path>
+					<path class="nav-icon-close hidden" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path>
+				</svg>
+			</button>
+		</div>
+	</div>
+
+	<nav
+		id="mobile-nav"
+		class="hidden border-t border-border bg-surface-elevated lg:hidden"
+		aria-label="Mobile"
+		data-mobile-nav
+	>
+		<ul class="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-4 sm:px-8">
+			{
+				items.map((item) => (
+					<li>
+						<a
+							href={item.href}
+							class="block rounded-md px-3 py-3 text-base font-medium text-ink transition-colors hover:bg-surface-muted"
+							data-mobile-nav-link
+						>
+							{item.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</header>
+
+<script>
+	function initMobileNav() {
+		const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+		const panel = document.querySelector<HTMLElement>("[data-mobile-nav]");
+		if (!toggle || !panel || toggle.dataset.navBound === "true") return;
+
+		toggle.dataset.navBound = "true";
+
+		const openIcon = toggle.querySelector(".nav-icon-open");
+		const closeIcon = toggle.querySelector(".nav-icon-close");
+
+		const setOpen = (open: boolean) => {
+			panel.classList.toggle("hidden", !open);
+			toggle.setAttribute("aria-expanded", String(open));
+			toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+			openIcon?.classList.toggle("hidden", open);
+			closeIcon?.classList.toggle("hidden", !open);
+		};
+
+		toggle.addEventListener("click", () => {
+			const open = toggle.getAttribute("aria-expanded") !== "true";
+			setOpen(open);
+		});
+
+		panel.querySelectorAll<HTMLAnchorElement>("[data-mobile-nav-link]").forEach((link) => {
+			link.addEventListener("click", () => setOpen(false));
+		});
+
+		window.addEventListener("keydown", (event) => {
+			if (event.key === "Escape") setOpen(false);
+		});
+	}
+
+	initMobileNav();
+	document.addEventListener("astro:page-load", initMobileNav);
+</script>

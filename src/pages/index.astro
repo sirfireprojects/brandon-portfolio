@@ -1,0 +1,22 @@
+---
+import About from "../components/sections/About.astro";
+import Capabilities from "../components/sections/Capabilities.astro";
+import Contact from "../components/sections/Contact.astro";
+import Exploring from "../components/sections/Exploring.astro";
+import Hero from "../components/sections/Hero.astro";
+import Projects from "../components/sections/Projects.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+	title={`${site.fullName} — Portfolio`}
+	description={site.description}
+>
+	<Hero />
+	<About />
+	<Capabilities />
+	<Projects />
+	<Exploring />
+	<Contact />
+</BaseLayout>

@@ -1,0 +1,39 @@
+---
+interface Props {
+	eyebrow?: string;
+	title: string;
+	id: string;
+	description?: string;
+	align?: "left" | "split";
+}
+
+const { eyebrow, title, id, description, align = "left" } = Astro.props;
+---
+
+<header
+	class:list={[
+		"reveal",
+		align === "split"
+			? "grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end"
+			: "max-w-3xl",
+	]}
+>
+	<div>
+		{
+			eyebrow && (
+				<p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-accent">{eyebrow}</p>
+			)
+		}
+		<h2
+			id={id}
+			class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]"
+		>
+			{title}
+		</h2>
+	</div>
+	{
+		description && (
+			<p class="max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">{description}</p>
+		)
+	}
+</header>

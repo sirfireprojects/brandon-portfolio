@@ -1,0 +1,76 @@
+---
+import { site } from "../../data/site";
+import SectionHeading from "../ui/SectionHeading.astro";
+---
+
+<section id="about" class="section-shell border-b border-border" aria-labelledby="about-heading">
+	<div class="mx-auto max-w-6xl px-5 sm:px-8">
+		<SectionHeading
+			id="about-heading"
+			eyebrow="About"
+			title="Practical IT roots. Growing software craft."
+			description="A concise look at where I’m coming from — and where I’m headed."
+			align="split"
+		/>
+
+		<div class="mt-12 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+			<aside class="reveal reveal-delay-1 relative">
+				<div class="sticky top-24 rounded-[1.25rem] border border-border bg-surface-elevated/70 p-6 sm:p-8">
+					<p class="font-display text-5xl font-bold leading-none tracking-tight text-accent sm:text-6xl">
+						{site.brandMark}
+					</p>
+					<p class="mt-6 text-sm leading-relaxed text-ink-muted">
+						Professional brand for {site.fullName} — an IT professional expanding into software
+						development with curiosity, care and a builder’s mindset.
+					</p>
+					<dl class="mt-8 space-y-4 border-t border-border pt-6 text-sm">
+						<div class="flex justify-between gap-4">
+							<dt class="text-ink-muted">Focus</dt>
+							<dd class="text-right font-medium text-ink">IT → Software</dd>
+						</div>
+						<div class="flex justify-between gap-4">
+							<dt class="text-ink-muted">Approach</dt>
+							<dd class="text-right font-medium text-ink">Learn by building</dd>
+						</div>
+						<div class="flex justify-between gap-4">
+							<dt class="text-ink-muted">Career history</dt>
+							<dd class="text-right">
+								<a
+									href="https://www.linkedin.com/in/brandon-njenga-13a88a1a0/"
+									class="font-medium text-accent underline-offset-4 hover:underline"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									LinkedIn
+								</a>
+							</dd>
+						</div>
+					</dl>
+				</div>
+			</aside>
+
+			<div class="reveal reveal-delay-2 space-y-6 text-base leading-relaxed text-ink-muted sm:text-lg">
+				<p class="text-ink">
+					I come from a Computer Science background and have spent meaningful time in IT support and
+					technical operations — diagnosing issues, supporting users and keeping systems running
+					smoothly.
+				</p>
+				<p>
+					That day-to-day work sharpened how I think: listen carefully, isolate the problem, test
+					assumptions and leave things better than I found them. Those habits transfer naturally into
+					software development.
+				</p>
+				<p>
+					I’m actively growing as a developer — writing more code, exploring modern web tools and
+					building projects that help me turn concepts into working software. I enjoy troubleshooting,
+					continuous learning and creating solutions that are genuinely useful.
+				</p>
+				<blockquote
+					class="border-l-2 border-accent pl-5 font-display text-xl font-semibold leading-snug tracking-tight text-ink sm:text-2xl"
+				>
+					Curious, practical and steadily building — one useful project at a time.
+				</blockquote>
+			</div>
+		</div>
+	</div>
+</section>
